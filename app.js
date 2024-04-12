@@ -88,6 +88,7 @@ function selectanswer(e){
     const iscorrect = selectedbtn.dataset.correct === "true";
     if(iscorrect){
         selectedbtn.classList.add("correct");
+        score++;
     }
     else{
         selectedbtn.classList.add("incorrect");
@@ -100,5 +101,31 @@ function selectanswer(e){
     });
     nextbtn.style.display = "block";
 }
+
+function showscore(){
+    resetstate();
+    quizquestion.innerHTML = `Your scored ${score} out of ${questions.length}!`;
+    nextbtn.innerHTML = "Play Again";
+    nextbtn.style.display = "block";
+}
+
+function handlenextbutton(){
+    questionnumber++;
+    if(questionnumber<questions.length){
+        showQuestions();
+    }
+    else{
+        showscore();
+    }
+}
+
+nextbtn.addEventListener("click", ()=>{
+    if(questionnumber < questions.length){
+        handlenextbutton();
+    }
+    else{
+        startquiz();
+    }
+})
 
 startquiz();
